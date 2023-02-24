@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
+import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -13,8 +15,13 @@ const Form = () => {
     selectedFile: "",
   });
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createPost(postData));
+  };
 
   const clear = () => {};
 
@@ -23,11 +30,12 @@ const Form = () => {
       <form
         className={`${classes.root} ${classes.form}`}
         autoComplete="off"
-        noValidate={classes.form}
+        noValidate
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">Creating a Memory</Typography>
         <TextField
+          id="creator"
           name="creator"
           variant="outlined"
           label="Creator"
@@ -47,6 +55,7 @@ const Form = () => {
         />
         <TextField
           name="message"
+          type="text"
           variant="outlined"
           label="Message"
           fullWidth
@@ -89,7 +98,7 @@ const Form = () => {
           onClick={clear}
           fullWidth
         >
-          Submit
+          Clear
         </Button>
       </form>
     </Paper>
