@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
 import { connectDb } from "./config/db.js";
 
-conn();
+connectDb();
 dotenv.config();
 
 const app = express();
