@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req, res) => {
@@ -25,4 +26,17 @@ export const createPost = async (req, res) => {
       message: error.message,
     });
   }
+};
+
+// deconstruct req params to get ID, check and return from fn if there's not ID, deconstruct post from req body, send ID to the method  *****method takes a second boolean par***  and assign value to a variable
+export const updatePost = async (req, res) => {
+  const { id: _id } = req.params;
+  const post = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that ID");
+
+  const updatedPost = PostMessage.findByIdAndUpdate(_id, { new: true });
+
+  res.json(updatedPost);
 };
