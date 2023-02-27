@@ -1,3 +1,4 @@
+import express from "express";
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
 
@@ -15,7 +16,7 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   const post = req.body;
 
-  const newPost = new PostMessage();
+  const newPost = new PostMessage(post);
 
   try {
     await newPost.save();
@@ -30,13 +31,16 @@ export const createPost = async (req, res) => {
 
 // deconstruct req params to get ID, check and return from fn if there's not ID, deconstruct post from req body, send ID to the method  *****method takes a second boolean par***  and assign value to a variable
 export const updatePost = async (req, res) => {
-  const { id: _id } = req.params;
-  const post = req.body;
+  const { id } = req.params;
+  const { creator, title, message, selectedFile, tags } = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("No post with that ID");
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No post with ID ${id}`);
+  }
 
-  const updatedPost = PostMessage.findByIdAndUpdate(_id, { new: true });
+  const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+
+  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
   res.json(updatedPost);
 };
