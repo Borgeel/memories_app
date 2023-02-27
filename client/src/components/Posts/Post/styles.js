@@ -49,4 +49,10 @@ export default makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  message: {
+    display: "flex",
+    textAlign: "center",
+    flexWrap: "wrap",
+    wordBreak: "break-all",
+  },
 });

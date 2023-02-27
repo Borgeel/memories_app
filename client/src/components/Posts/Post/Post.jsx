@@ -13,9 +13,16 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 
 import useStyles from "./styles";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onDelete = (id) => {
+    dispatch(deletePost(id));
+  };
 
   return (
     <Card className={classes.card}>
@@ -35,7 +42,6 @@ const Post = ({ post, setCurrentId }) => {
           style={{ color: "gray" }}
           size="small"
           onClick={() => {
-            console.log(post._id);
             setCurrentId(post._id);
           }}
         >
@@ -50,8 +56,11 @@ const Post = ({ post, setCurrentId }) => {
           {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
+      <Typography className={classes.title} variant="h5" gutterBottom>
+        {post.title}
+      </Typography>
       <CardContent>
-        <Typography className={classes.title} variant="h5" gutterBottom>
+        <Typography className={classes.message} variant="body1" gutterBottom>
           {post.message}
         </Typography>
       </CardContent>
@@ -69,7 +78,9 @@ const Post = ({ post, setCurrentId }) => {
           size="small"
           fontSize="small"
           color="secondary"
-          onClick={() => {}}
+          onClick={() => {
+            onDelete(post._id);
+          }}
         >
           <DeleteIcon />
           Delete
