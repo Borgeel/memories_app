@@ -14,15 +14,11 @@ import moment from "moment";
 
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const onDelete = (id) => {
-    dispatch(deletePost(id));
-  };
 
   return (
     <Card className={classes.card}>
@@ -53,7 +49,7 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag} `)}
+          {post.tags.map((tag) => `#${tag}`)}
         </Typography>
       </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
@@ -69,9 +65,12 @@ const Post = ({ post, setCurrentId }) => {
           size="small"
           fontSize="small"
           color="primary"
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(likePost(post._id));
+          }}
         >
-          <span> Like {post.likeCount} </span>
+          <span> {`Like  ${post.likeCount}`} </span>
+
           <ThumbUpAltIcon />
         </Button>
         <Button
@@ -79,7 +78,7 @@ const Post = ({ post, setCurrentId }) => {
           fontSize="small"
           color="secondary"
           onClick={() => {
-            onDelete(post._id);
+            dispatch(deletePost(post._id));
           }}
         >
           <DeleteIcon />
