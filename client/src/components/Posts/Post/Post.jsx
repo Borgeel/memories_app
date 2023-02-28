@@ -49,14 +49,19 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag}`)}
+          {post.tags.map((tag) => ` #${tag}`)}
         </Typography>
       </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
         {post.title}
       </Typography>
       <CardContent>
-        <Typography className={classes.message} variant="body1" gutterBottom>
+        <Typography
+          className={classes.message}
+          variant="body2"
+          color="textSecondary"
+          gutterBottom
+        >
           {post.message}
         </Typography>
       </CardContent>
@@ -69,9 +74,8 @@ const Post = ({ post, setCurrentId }) => {
             dispatch(likePost(post._id));
           }}
         >
-          <span> {`Like  ${post.likeCount}`} </span>
-
           <ThumbUpAltIcon />
+          <span> &nbsp; Like &nbsp; {post.likeCount}</span>
         </Button>
         <Button
           size="small"
@@ -82,7 +86,7 @@ const Post = ({ post, setCurrentId }) => {
           }}
         >
           <DeleteIcon />
-          Delete
+          &nbsp; Delete
         </Button>
       </CardActions>
     </Card>
