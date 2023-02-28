@@ -22,7 +22,7 @@ const App = () => {
   return (
     <Container>
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h3" align="center">
+        <Typography className={classes.heading} variant="h4" align="center">
           Memories
         </Typography>
         <img
@@ -35,15 +35,16 @@ const App = () => {
       <Grow in>
         <Container>
           <Grid
+            className={classes.mainContainer}
             container
             justifyContent="space-between"
             alignItems="stretch"
             spacing={3}
           >
-            <Grid item xs={12} sm={9}>
+            <Grid item xs={12} sm={12} md={8}>
               <Posts setCurrentId={setCurrentId} />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} md={4}>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
