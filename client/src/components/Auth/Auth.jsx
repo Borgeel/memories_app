@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import { AUTH } from "../../contstants/actionTypes";
-import { signin, singup } from "../../actions/auth";
+import { signin, signup } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 
@@ -31,7 +31,7 @@ const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [singUpData, setSingUpData] = useState(initialState);
+  const [formData, setFormData] = useState(initialState);
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -40,16 +40,16 @@ const Auth = () => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(signup(singUpData, history));
+      dispatch(signup(formData, history));
     } else {
-      dispatch(signin(singUpData, history));
+      dispatch(signin(formData, history));
     }
 
-    console.log(singUpData);
+    console.log(formData);
   };
 
   const changeHandler = (e) => {
-    setSingUpData({ ...singUpData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const showPasswordHandler = () => {
@@ -62,7 +62,6 @@ const Auth = () => {
 
   const googleResponse = (response) => {
     const decoded = jwt_decode(response?.credential);
-    // const { name, sub, picture } = decoded;
 
     try {
       dispatch({ type: AUTH, data: decoded });

@@ -54,7 +54,7 @@ const Navbar = () => {
               alt={user?.given_name}
               src={user?.picture}
             >
-              {user?.given_name.charAt(1)}
+              {user?.given_name}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
               {user?.given_name}
