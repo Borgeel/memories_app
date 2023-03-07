@@ -22,7 +22,6 @@ export default (posts = [], action) => {
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
-      return;
     default:
       return posts;
   }

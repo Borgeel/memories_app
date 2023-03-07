@@ -1,36 +1,56 @@
 import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
 import {
   Avatar,
   Container,
   Grid,
   Paper,
-  TextField,
   Typography,
   Button,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import { AUTH } from "../../contstants/actionTypes";
-import { useHistory } from "react-router-dom";
-
-import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
-
-import useStyles from "./styles";
-import Input from "./Input";
+import { signin, singup } from "../../actions/auth";
 import { useDispatch } from "react-redux";
+import useStyles from "./styles";
+
+import Input from "./Input";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassoword: "",
+};
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [singUpData, setSingUpData] = useState(initialState);
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const submitHandler = () => {};
+  const submitHandler = (e) => {
+    e.preventDefault();
 
-  const changeHandler = () => {};
+    if (isSignup) {
+      dispatch(signup(singUpData, history));
+    } else {
+      dispatch(signin(singUpData, history));
+    }
+
+    console.log(singUpData);
+  };
+
+  const changeHandler = (e) => {
+    setSingUpData({ ...singUpData, [e.target.name]: e.target.value });
+  };
 
   const showPasswordHandler = () => {
     setShowPassword((prevState) => !prevState);
@@ -72,7 +92,7 @@ const Auth = () => {
                   half
                 />
                 <Input
-                  name="firstName"
+                  name="lastName"
                   label="Last Name"
                   changeHandler={changeHandler}
                   half
