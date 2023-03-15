@@ -45,40 +45,40 @@ const Navbar = () => {
           alt="memories"
           height="80"
         />
-      </div>
-      <Toolbar className={classes.toolbar}>
-        {user ? (
-          <div className={classes.profile}>
-            <Avatar
-              className={classes.purple}
-              alt={user?.given_name}
-              src={user?.picture}
-            >
-              {user?.given_name}
-            </Avatar>
-            <Typography className={classes.userName} variant="h6">
-              {user?.given_name}
-            </Typography>
+        <Toolbar className={classes.toolbar}>
+          {user ? (
+            <div className={classes.profile}>
+              <Avatar
+                className={classes.purple}
+                alt={user?.given_name}
+                src={user?.picture}
+              >
+                {user?.given_name || user?.result.name.charAt(0).toUpperCase()}
+              </Avatar>
+              <Typography className={classes.userName} variant="h6">
+                {user?.given_name || user?.result.name}
+              </Typography>
+              <Button
+                variant="contained"
+                className={classes.logout}
+                color="secondary"
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
             <Button
+              component={Link}
+              to="/auth"
               variant="contained"
-              className={classes.logout}
-              color="secondary"
-              onClick={logout}
+              color="primary"
             >
-              Logout
+              Login
             </Button>
-          </div>
-        ) : (
-          <Button
-            component={Link}
-            to="/auth"
-            variant="contained"
-            color="primary"
-          >
-            Login
-          </Button>
-        )}
-      </Toolbar>
+          )}
+        </Toolbar>
+      </div>
     </AppBar>
   );
 };

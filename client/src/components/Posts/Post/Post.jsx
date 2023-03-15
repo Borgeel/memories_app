@@ -30,7 +30,7 @@ const Post = ({ post, setCurrentId }) => {
         />
       )}
       <div className={classes.overlay}>
-        <Typography variant="h6"> {post.creator} </Typography>
+        <Typography variant="h6"> {post.name} </Typography>
         <Typography variant="body2">{moment(post.body).fromNow()} </Typography>
       </div>
       <div className={classes.overlay2}>
@@ -45,7 +45,7 @@ const Post = ({ post, setCurrentId }) => {
         </Button>
       </div>
       <div className={classes.details}>
-        <Typography variant="h6">{post.creator}</Typography>
+        <Typography variant="h6">{post.name}</Typography>
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
