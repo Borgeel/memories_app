@@ -21,6 +21,8 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
 
+  console.log(user);
+
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
@@ -39,16 +41,6 @@ const Form = ({ currentId, setCurrentId }) => {
     clear();
   };
 
-  if (user?.result?.name) {
-    return (
-      <Paper>
-        <Typography varaint="h6" align="center">
-          Please Sign In order to create your own memories.
-        </Typography>
-      </Paper>
-    );
-  }
-
   const clear = () => {
     setCurrentId(null);
     setPostData({
@@ -59,6 +51,16 @@ const Form = ({ currentId, setCurrentId }) => {
       selectedFile: "",
     });
   };
+
+  if (!user) {
+    return (
+      <Paper>
+        <Typography varaint="h6" align="center">
+          Please Sign In order to create your own memories.
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
