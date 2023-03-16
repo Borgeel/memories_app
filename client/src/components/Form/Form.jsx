@@ -8,7 +8,6 @@ import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
-    // creator: "",
     title: "",
     message: "",
     tags: "",
@@ -21,8 +20,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  console.log(user);
-
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
@@ -34,7 +31,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(updatePost({ ...postData, name: user?.result?.name }));
     } else {
       dispatch(
-        createPost(currentId, { ...postData, name: user?.result?.name })
+        createPost({ currentId, ...postData, name: user?.result?.name })
       );
     }
 
@@ -73,17 +70,6 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography variant="h6">
           {currentId ? "Editing" : "Creating"} a Memory
         </Typography>
-        {/* <TextField
-          id="creator"
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-        /> */}
         <TextField
           name="title"
           variant="outlined"
