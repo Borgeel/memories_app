@@ -18,6 +18,7 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
@@ -28,11 +29,11 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(updatePost({ ...postData, name: user?.result?.name }));
-    } else {
       dispatch(
-        createPost({ currentId, ...postData, name: user?.result?.name })
+        updatePost(currentId, { ...postData, name: user?.result?.name })
       );
+    } else {
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     }
 
     clear();
@@ -41,7 +42,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(null);
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
