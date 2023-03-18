@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { googleLogout } from "@react-oauth/google";
+import decode from "jwt-decode";
 
 import useStyles from "./styles";
 import memories from "../../images/memories.png";
@@ -16,6 +17,14 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
@@ -51,13 +60,13 @@ const Navbar = () => {
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
-              alt={user?.given_name}
-              src={user?.picture}
+              alt={user?.result?.name}
+              src={user?.result?.picture}
             >
-              {user?.given_name || user?.result.name.charAt(0).toUpperCase()}
+              {user?.result.name.charAt(0).toUpperCase()}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
-              {user?.given_name || user?.result.name}
+              {user?.result?.name}
             </Typography>
             <Button
               variant="contained"

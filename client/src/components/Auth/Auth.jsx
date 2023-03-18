@@ -58,11 +58,12 @@ const Auth = () => {
     setIsSignup((prevState) => !prevState);
   };
 
-  const googleResponse = (response) => {
-    const decoded = jwt_decode(response?.credential);
+  const googleResponse = async (response) => {
+    const token = response.credential;
+    const result = jwt_decode(response?.credential);
 
     try {
-      dispatch({ type: AUTH, data: decoded });
+      dispatch({ type: AUTH, data: { result, token } });
 
       history.push("/");
     } catch (error) {
@@ -127,27 +128,29 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid container justifyContent="center">
             <Grid item>
-              <Button
-                type="button"
-                fullWidth
-                color="primary"
-                onClick={switchMode}
-              >
-                {!isSignup
-                  ? "Don't have an account yet? Sign up."
-                  : "Already have an account? Sign in"}
-              </Button>
+              <GoogleLogin
+                onSuccess={googleResponse}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
             </Grid>
-          </Grid>
-          <Grid item>
-            <GoogleLogin
-              onSuccess={googleResponse}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Button
+                  type="button"
+                  fullWidth
+                  color="primary"
+                  onClick={switchMode}
+                >
+                  {!isSignup
+                    ? "Don't have an account yet? Sign up."
+                    : "Already have an account? Sign in"}
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </form>
       </Paper>
