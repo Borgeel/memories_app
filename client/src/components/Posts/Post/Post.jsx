@@ -48,7 +48,7 @@ const Post = ({ post, setCurrentId }) => {
     } else {
       return (
         <>
-          <ThumbUpAltOutlined fontSize="small" /> &nbsp; {post.likes.length}{" "}
+          <ThumbUpAltOutlined fontSize="small" /> &nbsp; {post.likes.length}
           Like
         </>
       );

@@ -13,11 +13,11 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
+  const dispatch = useDispatch();
+  const classes = useStyles();
   const post = useSelector((state) =>
     state.posts.find((post) => (post._id === currentId ? post : null))
   );
-  const classes = useStyles();
-  const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -51,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   if (!user) {
     return (
-      <Paper>
+      <Paper className={classes.paper}>
         <Typography varaint="h6" align="center">
           Please Sign In order to create your own memories.
         </Typography>

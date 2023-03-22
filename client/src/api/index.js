@@ -4,7 +4,7 @@ const API = axios.create({ baseURL: "http://localhost:5000" });
 
 const googleToken = JSON.parse(localStorage.getItem("profile"));
 
-// Interceptor which enables us to use the middleware. Send the token back to the backend in order for middleware to ensure user is logged in
+// Interceptor which enables us to use the middleware. Send the token to the backend in order for middleware to ensure user is logged in
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.authorization = `Bearer ${

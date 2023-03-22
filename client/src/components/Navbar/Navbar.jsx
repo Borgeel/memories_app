@@ -11,10 +11,10 @@ import { LOGOUT } from "../../contstants/actionTypes";
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const location = useLocation();
+  const history = useHistory();
+  const classes = useStyles();
 
   useEffect(() => {
     const token = user?.token;
