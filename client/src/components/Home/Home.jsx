@@ -14,7 +14,7 @@ import ChipInput from "material-ui-chip-input";
 // Internal
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../actions/posts";
+import { getPostBySearch, getPosts } from "../../actions/posts";
 
 // Components
 import Paginate from "../Pagination/Pagination";
@@ -44,7 +44,7 @@ const Home = () => {
   // Search Post
   const searchPost = () => {
     if (searchTerm.trim()) {
-      dispatch();
+      dispatch(getPostBySearch({ searchTerm, tags: tags.join(",") }));
     } else {
       history.push("/");
     }
@@ -103,7 +103,11 @@ const Home = () => {
                   label="Search Tags"
                   variant="outlined"
                 />
-                <Button onClick={searchPost} color="primary">
+                <Button
+                  onClick={searchPost}
+                  color="primary"
+                  variant="contained"
+                >
                   Search
                 </Button>
               </AppBar>

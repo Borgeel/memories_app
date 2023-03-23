@@ -22,7 +22,12 @@ export const updatePost = (id, updatedPost) =>
   API.patch(`posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/likepost`);
-// export const searchPost = (tags, search) => API.get("/posts")
+export const fetchPostsBySearch = (searchQuery) =>
+  API.get(
+    `/posts/search?searchQuery=${searchQuery.searchTerm || "none"}&tags=${
+      searchQuery.tags
+    }`
+  );
 
 // AUTHORIZATION
 export const signIn = (formData) => API.post("/users/signin", formData);

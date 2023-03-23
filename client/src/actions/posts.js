@@ -57,3 +57,17 @@ export const likePost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getPostBySearch = (searchQuery) => async (dispatch) => {
+  try {
+    const {
+      data: { data },
+    } = await api.fetchPostsBySearch(searchQuery);
+
+    console.log({ data });
+
+    dispatch({ type: SEARCH, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
