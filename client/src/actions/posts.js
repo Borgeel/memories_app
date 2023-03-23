@@ -4,6 +4,7 @@ import {
   FETCH_ALL,
   LIKE,
   UPDATE,
+  SEARCH,
 } from "../contstants/actionTypes";
 import * as api from "../api";
 // ACTION CREATORS
