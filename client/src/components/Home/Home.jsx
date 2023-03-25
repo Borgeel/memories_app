@@ -26,8 +26,8 @@ const useQuery = () => {
 };
 
 const Home = () => {
-  const [currentId, setCurrentId] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentId, setCurrentId] = useState();
   const [tags, setTags] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -43,8 +43,15 @@ const Home = () => {
 
   // Search Post
   const searchPost = () => {
-    if (searchTerm.trim()) {
+    if (searchTerm.trim() || tags.length) {
       dispatch(getPostBySearch({ searchTerm, tags: tags.join(",") }));
+      history.push(
+        `/posts/search?searchQuery=${searchTerm || "none"}&tags=${tags.join(
+          "," || "none"
+        )}`
+      );
+      setSearchTerm("");
+      setTags([]);
     } else {
       history.push("/");
     }

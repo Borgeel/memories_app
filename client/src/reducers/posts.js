@@ -4,6 +4,7 @@ import {
   FETCH_ALL,
   LIKE,
   UPDATE,
+  SEARCH,
 } from "../contstants/actionTypes";
 
 export default (posts = [], action) => {
@@ -22,6 +23,8 @@ export default (posts = [], action) => {
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
+    case SEARCH:
+      return action.payload;
     default:
       return posts;
   }

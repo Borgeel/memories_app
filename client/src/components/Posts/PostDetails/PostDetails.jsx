@@ -1,7 +1,7 @@
 import React from "react";
 
 const PostDetails = () => {
-  console.log("Post Details");
+  console.log("Post details");
 
   return <div>PostDetails</div>;
 };
