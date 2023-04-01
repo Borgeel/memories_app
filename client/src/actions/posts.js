@@ -5,12 +5,18 @@ import {
   LIKE,
   UPDATE,
   SEARCH,
+  START_LOADING,
+  END_LOADING,
 } from "../contstants/actionTypes";
 import * as api from "../api";
 // ACTION CREATORS
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const { data } = await api.fetchPosts(page);
+
+    dispatch({ type: END_LOADING });
 
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
@@ -20,9 +26,12 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const { data } = await api.createPost(post);
 
     dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -60,13 +69,14 @@ export const likePost = (id) => async (dispatch) => {
 
 export const getPostBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
+
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
 
-    console.log(data);
-
     dispatch({ type: SEARCH, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
