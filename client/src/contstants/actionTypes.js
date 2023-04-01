@@ -4,6 +4,7 @@ export const DELETE = "DELETE";
 export const FETCH_ALL = "FETCH_ALL";
 export const LIKE = "LIKE";
 export const SEARCH = "SEARCH";
+export const FETCH_POST = "FETCH_POST";
 
 // AUTHORIZATION
 export const AUTH = "AUTH";

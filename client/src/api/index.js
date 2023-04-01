@@ -28,6 +28,7 @@ export const fetchPostsBySearch = (searchQuery) =>
       searchQuery.tags
     }`
   );
+export const fetchPost = (id) => API.get(`/posts/${id}`);
 
 // AUTHORIZATION
 export const signIn = (formData) => API.post("/users/signin", formData);
