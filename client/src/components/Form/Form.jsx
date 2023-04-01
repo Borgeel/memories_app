@@ -16,7 +16,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const post = useSelector((state) =>
-    state.posts.find((post) => (post._id === currentId ? post : null))
+    state.data?.find((post) => (post._id === currentId ? post : null))
   );
 
   const user = JSON.parse(localStorage.getItem("profile"));
