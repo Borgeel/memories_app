@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,6 @@ import { commentPost } from "../../../actions/posts";
 const CommentSection = ({ post }) => {
   const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
-
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -18,8 +17,8 @@ const CommentSection = ({ post }) => {
     const finalComment = `${user.result.name}: ${comment}`;
 
     const newComments = await dispatch(commentPost(finalComment, post._id));
-    setComments(newComments);
 
+    setComments(newComments);
     setComment("");
   };
   return (
@@ -31,7 +30,9 @@ const CommentSection = ({ post }) => {
           </Typography>
           {comments?.map((comment, i) => (
             <Typography key={i} gutterBottom variant="subtitle1">
-              {comment}
+              <strong>{comment.split(": ")[0]}</strong>
+
+              {comment.split(":")[1]}
             </Typography>
           ))}
         </div>
