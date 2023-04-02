@@ -8,6 +8,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_POST,
+  COMMENT,
 } from "../contstants/actionTypes";
 import * as api from "../api";
 
@@ -94,6 +95,17 @@ export const getPost = (id) => async (dispatch) => {
 
     dispatch({ type: END_LOADING });
     dispatch({ type: FETCH_POST, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (comment, id) => async (dispatch) => {
+  try {
+    const { data } = await api.comment(comment, id);
+
+    dispatch({ type: COMMENT, payload: data });
+    return data.comments;
   } catch (error) {
     console.log(error);
   }

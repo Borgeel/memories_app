@@ -5,6 +5,7 @@ export const FETCH_ALL = "FETCH_ALL";
 export const LIKE = "LIKE";
 export const SEARCH = "SEARCH";
 export const FETCH_POST = "FETCH_POST";
+export const COMMENT = "COMMENT";
 
 // AUTHORIZATION
 export const AUTH = "AUTH";

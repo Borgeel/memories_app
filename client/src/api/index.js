@@ -21,7 +21,7 @@ export const createPost = (newPost) => API.post("/posts", newPost);
 export const updatePost = (id, updatedPost) =>
   API.patch(`posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
-export const likePost = (id) => API.patch(`/posts/${id}/likepost`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const fetchPostsBySearch = (searchQuery) =>
   API.get(
     `/posts/search?searchQuery=${searchQuery.searchTerm || "none"}&tags=${
@@ -29,6 +29,8 @@ export const fetchPostsBySearch = (searchQuery) =>
     }`
   );
 export const fetchPost = (id) => API.get(`/posts/${id}`);
+export const comment = (comment, id) =>
+  API.post(`/posts/${id}/commentPost`, { comment });
 
 // AUTHORIZATION
 export const signIn = (formData) => API.post("/users/signin", formData);
