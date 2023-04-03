@@ -3,9 +3,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import postRoutes from "./routes/posts.js";
-import userRoutes from "./routes/users.js";
-import { connectDb } from "./config/db.js";
+import postRoutes from "./server/routes/posts.js";
+import userRoutes from "./server/routes/users.js";
+import { connectDb } from "./server/config/db.js";
 
 connectDb();
 dotenv.config();
@@ -22,5 +22,9 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
+
+app.get("/", (req, res) => {
+  res.send("APP IS RUNNING");
+});
 
 app.listen(port, () => console.log(`Server started on port: ${port}`));
