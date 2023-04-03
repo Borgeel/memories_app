@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grow,
@@ -14,7 +14,7 @@ import ChipInput from "material-ui-chip-input";
 // Internal
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
-import { getPostBySearch, getPosts } from "../../actions/posts";
+import { getPostBySearch } from "../../actions/posts";
 
 // Components
 import Paginate from "../Pagination/Pagination";

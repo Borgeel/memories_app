@@ -16,6 +16,14 @@ const Navbar = () => {
   const history = useHistory();
   const classes = useStyles();
 
+  const logout = () => {
+    dispatch({ type: LOGOUT }, googleLogout());
+
+    setUser(null);
+
+    history.push("/");
+  };
+
   useEffect(() => {
     const token = user?.token;
 
@@ -27,15 +35,6 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
-
-  const logout = () => {
-    dispatch({ type: LOGOUT }, googleLogout());
-
-    setUser(null);
-
-    history.push("/");
-  };
-
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>

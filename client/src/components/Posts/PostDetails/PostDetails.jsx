@@ -117,6 +117,7 @@ const PostDetails = () => {
                     src={selectedFile}
                     width="200px"
                     style={{ maxWidth: "200px" }}
+                    alt={title}
                   />
                 </div>
               )
