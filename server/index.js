@@ -7,17 +7,16 @@ import postRoutes from "./server/routes/posts.js";
 import userRoutes from "./server/routes/users.js";
 import { connectDb } from "./server/config/db.js";
 
-connectDb();
 dotenv.config();
+
+connectDb();
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(cors());
 
 app.use("/posts", postRoutes);

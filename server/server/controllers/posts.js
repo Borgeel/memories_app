@@ -1,29 +1,45 @@
 import mongoose from "mongoose";
 import PostMessage from "../models/postMessage.js";
+import NodeCache from "node-cache";
+
+const cache = new NodeCache({ stdTTL: 60 });
 
 export const getPosts = async (req, res) => {
   const { page } = req.query;
+  const cacheKey = `posts_${page}`;
 
+  // Check if data is in the cache
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    return res.status(200).json({ data: cachedData });
+  }
+
+  // Data is not in the cache, query the database
+  // Limit of posts per page
+  const limit = 6;
   try {
-    // Limit of posts per page
-    const LIMIT = 6;
-    // Get the starting index of every pageO
-    const startIndex = (Number(page) - 1) * LIMIT;
+    const currentPage = Math.max(parseInt(page), 1);
+    // Get the starting index of every page
+    const startIndex = (currentPage - 1) * limit;
     // Counts the total number of pages
-    const total = await PostMessage.countDocuments({});
 
-    const posts = await PostMessage.find()
-      .sort({ _id: -1 })
-      .limit(LIMIT)
-      .skip(startIndex);
+    const [posts, total] = await Promise.all([
+      PostMessage.find().sort({ _id: -1 }).limit(limit).skip(startIndex),
+      PostMessage.countDocuments({}),
+    ]);
+
+    const numberOfPages = Math.ceil(total / limit);
+
+    // Store the data in the cache with an appropriate TTL
+    cache.set(cacheKey, { data: posts, currentPage, numberOfPages }, 60);
 
     res.status(200).json({
       data: posts,
-      currentPage: Number(page),
-      numberOfPages: Math.ceil(total / LIMIT),
+      currentPage,
+      numberOfPages,
     });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
